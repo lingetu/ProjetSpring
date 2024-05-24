@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarModule,CalendarEvent, CalendarView } from 'angular-calendar';
 import { startOfDay, endOfDay, subDays, addDays, addHours } from 'date-fns';
+import { StudentService } from '../services/student.service';
+import { GuestService } from '../services/guest.service';
 
 @Component({
   selector: 'app-agenda',
@@ -109,7 +111,9 @@ export class AgendaComponent implements OnInit {
   };
 
   ngOnInit() {
-    // Simulating data fetching from a database
+  
+
+
   }
 
   // addEvent() {
@@ -138,11 +142,11 @@ export class AgendaComponent implements OnInit {
   // }
 
   // Methods to navigate weeks
-  previousWeek() {
-    this.viewDate = subDays(this.viewDate, 7);
-  }
+  // previousWeek() {
+  //   this.viewDate = subDays(this.viewDate, 7);
+  // }
 
-  nextWeek() {
-    this.viewDate = addDays(this.viewDate, 7);
-  }
+  // nextWeek() {
+  //   this.viewDate = addDays(this.viewDate, 7);
+  // }
 }
