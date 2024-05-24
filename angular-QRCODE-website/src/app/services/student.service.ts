@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { STUDENT_LOGIN_URL, STUDENT_REGISTER_URL,STUDENT_LOAD_EVENT } from '../shared/constants/urls';
+import { STUDENT_LOGIN_URL, STUDENT_REGISTER_URL} from '../shared/constants/urls';
 import { IStudentLogin } from '../shared/interfaces/IStudentLogin';
 import { IStudentRegister } from '../shared/interfaces/IStudentRegister';
 import { Student } from '../shared/models/student';
@@ -57,21 +57,6 @@ export class StudentService {
     ); // to connect the backend with the front
 
   }
-
-  loadEvent(id:any):Observable<any>{
-    return this.http.get<CalendarEvent[]>(STUDENT_LOAD_EVENT, id).pipe(
-      tap({
-        next:(Event)=>{
-          this.Event.next(Event);
-        },
-        error:(errorresponse)=>{
-          this.toastrService.error(errorresponse.error, 'Erreur de chargement');
-        }
-      })
-    )
-  }
-
-
 
 // 2 methodes to save the connexion once a student has logged:
 

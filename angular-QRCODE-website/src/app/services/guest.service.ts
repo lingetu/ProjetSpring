@@ -1,16 +1,14 @@
-import { Guest } from './../shared/models/guest';
+import { Guest } from '../shared/models/guest';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import {
-     GUEST_CREATION_EVENT,
+
+  // GUEST_CREATION_EVENT,
   GUEST_LOGIN_URL,
   GUEST_REGISTER_URL,
-  GUEST_GET_GUEST_LIVE,
-  GUEST_DELETE_EVENT,
-  GUEST_EDITE_URL,
-  GUEST_ADD_STUDENT_TO_EVENT
+
 
 } from '../shared/constants/urls';
 
@@ -32,29 +30,7 @@ export class GuestService {
     this.guestObservable = this.UserGuest.asObservable();
   }
 
-  addStudentToEvent(idEvent: string,idGuest: string,idStudent: string,studentNumber:string): Observable<Guest> {
-    let obj = {
-      eventID: idEvent,
-      guestID: idGuest,
-      studentID: idStudent,
-      studentNumber: studentNumber,
-    };
-    return this.http.post<Guest>(GUEST_ADD_STUDENT_TO_EVENT, obj).pipe(
-      tap({
-        next: (guest) => {
-          this.toastrService.success(
-            `AJouté avec succés !!`,
-          );
-        },
-        error: (errorResponse) => {
-          this.toastrService.error(
-            errorResponse.error,
-            'Ajout échouée !! '
-          );
-        },
-      })
-    );
-  }
+
 
   // Here we define the Login methode by using an Interface (the IStudentLogin interface )
 
@@ -100,34 +76,9 @@ export class GuestService {
     localStorage.setItem(GUEST_KEY, JSON.stringify(guest));
   }
 
-  getGuestLive(guestId): Observable<Guest> {
-    let objGuestId = {
-      guestID: guestId,
-    };
 
-    return this.http.post<Guest>(GUEST_GET_GUEST_LIVE, objGuestId);
-  }
 
-  deleteEvent(eventId: string,Guest: Guest): Observable<Guest>{
-    let obj= {
-      guestID: Guest.id,
-      eventID: eventId
-    };
 
-    return this.http.post<Guest>(GUEST_DELETE_EVENT, obj).pipe(
-
-    tap({
-      next: (obj) => {
-        this.toastrService.success(`Evenement supprimé`);
-         // message to send in case of succes
-      },
-
-      error: (errorresponse) => {
-        this.toastrService.error(errorresponse.error, 'Failed'); // message in failed case
-      },
-    })
-  );
-}
 
 
 
@@ -143,57 +94,8 @@ export class GuestService {
 
 // Edite profile
 
-saveProfileGuest(guestEdite):Observable<Guest>{
-
-  console.log(guestEdite);
-  return this.http.post<Guest>(GUEST_EDITE_URL ,guestEdite).pipe(
-
-    tap({
-      next: (guest) =>{
-      //  this.setGuestToLocalStorage(guest);
-        // this.UserGuest.next(guest);
-        this.toastrService.success(
-          ` ${guest.name}`,
-          'Vos modifications sont bien sauvegardées!!'
-        )
-      },
-       error: (errorResponse)=>{
-        console.log(guestEdite);
-        this.toastrService.error(errorResponse.error ,
-          'Sauvegarde échouée!! ')
-
-    }
-  })
-  )
 
 
-
-
-
-}
-
-
-  creationEvent(guestId, dataEvent: IEventCreation): Observable<Guest> {
-    let objEventForCreation = {
-      guestID: guestId,
-      event: dataEvent,
-    };
-    console.log(objEventForCreation.event);
-    return this.http
-    .post<Guest>(GUEST_CREATION_EVENT, objEventForCreation)
-      .pipe(
-        tap({
-          next: (event) => {
-            this.toastrService.success(`Evenement ${event.name} !`);
-            ('Créé avec succés'); // message to send in case of succes
-          },
-
-          error: (errorresponse) => {
-            this.toastrService.error(errorresponse.error, 'Failed'); // message in failed case
-          },
-        })
-      );
-  }
 
 
 }

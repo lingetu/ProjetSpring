@@ -1,9 +1,12 @@
+
+
 import { Component, OnInit } from '@angular/core';
 import { CalendarModule,CalendarEvent, CalendarView } from 'angular-calendar';
 import { startOfDay, endOfDay, subDays, addDays, addHours } from 'date-fns';
 import { StudentService } from '../services/student.service';
 import { GuestService } from '../services/guest.service';
 import { Student } from '../shared/models/student';
+import { PlanningService } from '../services/planning.service';
 @Component({
   selector: 'app-agenda',
   templateUrl: './agenda.component.html',
@@ -102,7 +105,7 @@ export class AgendaComponent implements OnInit {
       }
   ];
 
-  constructor(private studentService: StudentService) { }
+  constructor(private studentService: StudentService, private PlanningService:PlanningService) { }
 
 
   newEvent: CalendarEvent = {
@@ -118,13 +121,12 @@ export class AgendaComponent implements OnInit {
   //méthode pour récupérer les événements de l'étudiant connecté depuis la base de données à travers le service StudentService
   this.studentService.studentObservable.subscribe((newStudent)=>{
     this.student = newStudent;
-
-    this.studentService.loadEvent(this.student.id).subscribe((events)=>{
+    this.PlanningService.getEvent(this.student.id).subscribe((events)=>{
       this.events = events;
     }
     )
   })
-  
+
  if(this.student.name == undefined){
    //Rediriger vers la page de connexion
    window.location.href = "/formLogin";

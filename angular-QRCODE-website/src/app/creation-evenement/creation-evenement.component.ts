@@ -56,19 +56,19 @@ export class CreationEvenementComponent implements OnInit {
 
 
 
-    this.guestService
-      .creationEvent(
-        { guestID: this.guest.id },
-        {
-          name: this.fcEvent['eventName'].value,
-          date: this.fcEvent['eventDate'].value,
-          time: this.fcEvent['eventTime'].value,
-          hour: this.fcEvent['eventHour'].value,
-          presentList: [],
-        }
-      )
-      .subscribe(() => {
-        this.router.navigate([this.returnUrlGuest]);
-      });
+//     this.guestService
+//       .creationEvent(
+//         { guestID: this.guest.id },
+//         {
+//           name: this.fcEvent['eventName'].value,
+//           date: this.fcEvent['eventDate'].value,
+//           time: this.fcEvent['eventTime'].value,
+//           hour: this.fcEvent['eventHour'].value,
+//           presentList: [],
+//         }
+//       )
+//       .subscribe(() => {
+//         this.router.navigate([this.returnUrlGuest]);
+//       });
   }
 }
