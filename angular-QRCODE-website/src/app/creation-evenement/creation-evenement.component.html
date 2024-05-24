@@ -1,0 +1,32 @@
+
+
+<div class="background">
+  <div class="container">
+    <div class="screen">
+      <div class="screen-body">
+        <div class="screen-body-item">
+          <form class="app-form " [formGroup]="DataFormCreationEvent" (ngSubmit)="submitCreationEvent()">
+            <div class="app-form-group">
+              <input class="app-form-control" placeholder="NAME" formControlName="eventName">
+            </div>
+
+            <div class="app-form-group">
+              <input class="app-form-control" placeholder="date"  type="date" formControlName="eventDate">
+            </div>
+
+            <div class="app-form-group">
+              <input class="app-form-control" placeholder="heure du début du cours" type="time" formControlName="eventTime">
+            </div>
+            <div class="app-form-group message">
+              <input class="app-form-control" placeholder="durée en heure" type="number" formControlName="eventHour">
+            </div>
+
+            <div class="app-form-group buttons">
+              <button class="app-form-button">SEND</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

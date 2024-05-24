@@ -1,0 +1,29 @@
+<div class="agenda-container">
+  <h1>Agenda</h1>
+
+  <div class="calendar-header">
+    <!-- <button (click)="viewDate = subDays(viewDate, 1)">Previous</button>
+    <button (click)="viewDate = addDays(viewDate, 1)">Next</button> -->
+    <button (click)="view = CalendarView.Month">Month</button>
+    <button (click)="view = CalendarView.Week">Week</button>
+    <button (click)="view = CalendarView.Day">Day</button>
+  </div>
+
+  <mwl-calendar-week-view [viewDate]="viewDate" [events]="events"></mwl-calendar-week-view>
+
+  <!-- <form (submit)="addEvent()">
+    <input type="text" [(ngModel)]="newEvent.title" placeholder="Title" name="title" required>
+    <input type="date" [(ngModel)]="newEvent.start | date:'yyyy-MM-dd'" name="start" required>
+    <textarea [(ngModel)]="newEvent.meta.description" placeholder="Description" name="description"></textarea>
+    <button type="submit">Add Event</button>
+  </form> -->
+
+  <!-- <ul>
+    <li *ngFor="let event of events">
+      <h2>{{ event.title }}</h2>
+      <p>{{ event.start | date }}</p>
+      <p>{{ event.meta.description }}</p>
+      <button (click)="deleteEvent(event)">Delete</button>
+    </li>
+  </ul> -->
+</div>

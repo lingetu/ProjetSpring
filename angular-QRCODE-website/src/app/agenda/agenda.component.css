@@ -1,0 +1,55 @@
+.agenda-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form input, form textarea, form button {
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+li h2 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+li p {
+  margin: 5px 0;
+}
+
+button {
+  background-color: #ff4081;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e03570;
+}
+mwl-calendar-week-view {
+  height: 90vh; /* Utilisez une hauteur de 90% de la hauteur de la fenêtre */
+}
+mwl-calendar-week-view .cal-day-headers,
+mwl-calendar-week-view .cal-day-events {
+  max-height: calc(90vh - 100px); /* Ajustez la taille des éléments internes en fonction de la hauteur du calendrier */
+}

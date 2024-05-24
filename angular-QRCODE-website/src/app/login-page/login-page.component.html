@@ -1,0 +1,71 @@
+<section class="sectioncontainer">
+
+
+<div class="container" id="container" #container>
+	<div class="form-container sign-up-container">
+		<form [formGroup]="DataFormGuestLogin" (ngSubmit)="submitGuestLogin()">
+			<h1>Enseignant</h1>
+			<input type="email" placeholder="Email" formControlName ="email"/>
+			<input type="password" placeholder="Password" formControlName ="password"/>
+            <a href="#">Forgot your password?</a>
+			<button>Se connecter</button>
+		</form>
+	</div>
+	<div class="form-container sign-in-container">
+		<form [formGroup]="DataFormStudentLogin" (ngSubmit)="submitStudentLogin()">
+			<h1>Etudiant</h1>
+			<input type="number" placeholder="21544612" formControlName ="number" />
+
+			<div class="error-list" *ngIf="fcStudent['number'].errors && isSubmitted">
+
+			     <div *ngIf ="fcStudent['number'].errors['required']"> Ce champ ne doit pas etre vide. </div>
+
+			     <div *ngIf ="fcStudent['number'].errors['number']"> Identifiant trop court. </div>
+			</div>
+
+			<input type="password" placeholder="Password"  formControlName ="password" />
+
+			<div class="error-list" *ngIf="fcStudent['number'].errors && isSubmitted">
+				<div *ngIf ="fcStudent['password'].errors['required']">Ce champ ne doit pas etre vide. </div>
+		   </div>
+			<a href="#">Forgot your password?</a>
+			<button >Se connecter</button>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Vous êtes Etudiant ?</h1>
+				<p>Entrez votre numéro étudiant et un mot de passe </p>
+				<button class="ghost" id="signIn" (click)="leftpanelactive(container)">Etudiant</button>
+                <p>Vous n'avez pas encore de compte ?</p>
+                <a routerLink="/formRegistration"><button class="ghost" id="signUp" >Inscription</button></a>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Vous êtes Enseignant ?</h1>
+				<p>Entrez votre mail et un mot de passe !</p>
+				<button class="ghost" id="signUp" (click)="rightpanelactive(container)">
+          Enseignant
+        </button>
+                <p>Vous n'avez pas encore de compte ?</p>
+                <a routerLink="/formRegistration"><button class="ghost" id="signUp" >Inscription</button></a>
+			</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+const signUpButton = document.getElementById('signUp');
+const signInButton = document.getElementById('signIn');
+const container = document.getElementById('container');
+
+signUpButton.addEventListener('click', () => {
+	container.classList.add("right-panel-active");
+});
+
+
+signInButton.addEventListener('click', () => {
+    container.classList.remove("right-panel-active");
+});
+</script>
