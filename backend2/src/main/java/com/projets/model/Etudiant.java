@@ -1,12 +1,16 @@
 package com.projets.model;
 
+import java.util.List;
+
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
+@DiscriminatorValue("Etudiant")
 public class Etudiant extends Utilisateur {
     private String matricule;
 
-    // getters et setters
+    // Getters et setters
     public String getMatricule() {
         return matricule;
     }
@@ -15,19 +19,19 @@ public class Etudiant extends Utilisateur {
         this.matricule = matricule;
     }
 
-	public Etudiant(int id, String nom, String email, String motDePasse, String matricule) {
-		super(id, nom, email, motDePasse);
-		this.matricule = matricule;
-	}
+    // Constructeur avec tous les champs, y compris ceux de la superclasse
+    public Etudiant(int id, String nom, String email, String motDePasse, List<Planning> plannings, String matricule) {
+        super(id, nom, email, motDePasse, plannings);
+        this.matricule = matricule;
+    }
 
-	public Etudiant() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    // Constructeur sans argument
+    public Etudiant() {
+        super();
+    }
 
-	public Etudiant(int id, String nom, String email, String motDePasse) {
-		super(id, nom, email, motDePasse);
-		// TODO Auto-generated constructor stub
-	}
-    
+    // Constructeur avec les champs de la superclasse seulement
+    public Etudiant(int id, String nom, String email, String motDePasse, List<Planning> plannings) {
+        super(id, nom, email, motDePasse, plannings);
+    }
 }

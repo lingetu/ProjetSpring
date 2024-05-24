@@ -15,7 +15,7 @@ import com.projets.repository.UtilisateurRepository;
 @RestController
 public class UtilisateurController {
     @Autowired UtilisateurRepository utilisateurRepository;
-    	
+  
     @GetMapping("/utilisateurs")
     public List<Utilisateur> getUtilisateurs(){
     	return utilisateurRepository.findAll();

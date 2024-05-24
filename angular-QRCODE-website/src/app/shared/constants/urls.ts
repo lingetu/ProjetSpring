@@ -1,8 +1,8 @@
-export const BASE_URL = "http://localhost:5000";
+export const BASE_URL = "http://localhost:8080";
 
 // export const STUDENT_URL = BASE_URL + "/api/students";
 
-export const LOAD_EVENT = BASE_URL + "/api/loadEvent";
+export const LOAD_EVENT = BASE_URL + "/api/getPlanningsByUtilisateurId";
 
 export const STUDENT_LOGIN_URL  = BASE_URL + "/api/students/loginStudent";
 export const STUDENT_REGISTER_URL  = BASE_URL + "/api/students/registerStudent";
