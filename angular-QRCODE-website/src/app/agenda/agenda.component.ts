@@ -3,7 +3,7 @@ import { CalendarModule,CalendarEvent, CalendarView } from 'angular-calendar';
 import { startOfDay, endOfDay, subDays, addDays, addHours } from 'date-fns';
 import { StudentService } from '../services/student.service';
 import { GuestService } from '../services/guest.service';
-
+import { Student } from '../shared/models/student';
 @Component({
   selector: 'app-agenda',
   templateUrl: './agenda.component.html',
@@ -16,6 +16,7 @@ export class AgendaComponent implements OnInit {
   view : CalendarView = CalendarView.Week;
   viewDate: Date = new Date();
   CalendarView = CalendarView;
+  student:Student;
 
   events: CalendarEvent[] = [
 
@@ -101,6 +102,9 @@ export class AgendaComponent implements OnInit {
       }
   ];
 
+  constructor(private studentService: StudentService) { }
+
+
   newEvent: CalendarEvent = {
     start: new Date(),
     end: addHours(new Date(), 2),
@@ -111,7 +115,22 @@ export class AgendaComponent implements OnInit {
   };
 
   ngOnInit() {
+  //méthode pour récupérer les événements de l'étudiant connecté depuis la base de données à travers le service StudentService
+  this.studentService.studentObservable.subscribe((newStudent)=>{
+    this.student = newStudent;
+
+    this.studentService.loadEvent(this.student.id).subscribe((events)=>{
+      this.events = events;
+    }
+    )
+  })
   
+ if(this.student.name == undefined){
+   //Rediriger vers la page de connexion
+   window.location.href = "/formLogin";
+ }
+
+
 
 
   }

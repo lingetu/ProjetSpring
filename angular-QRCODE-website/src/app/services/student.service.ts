@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { STUDENT_LOGIN_URL, STUDENT_REGISTER_URL } from '../shared/constants/urls';
+import { STUDENT_LOGIN_URL, STUDENT_REGISTER_URL,STUDENT_LOAD_EVENT } from '../shared/constants/urls';
 import { IStudentLogin } from '../shared/interfaces/IStudentLogin';
 import { IStudentRegister } from '../shared/interfaces/IStudentRegister';
 import { Student } from '../shared/models/student';
+import { CalendarModule,CalendarEvent, CalendarView } from 'angular-calendar';
 
 const STUDENT_KEY = 'Student'; // We can modify this key when it's needed
 
@@ -13,10 +14,10 @@ const STUDENT_KEY = 'Student'; // We can modify this key when it's needed
   providedIn: 'root'
 })
 export class StudentService {
-  
+
  // private UserStudent = new BehaviorSubject<Student>(this.getStudentFromLocalStorage());
  private UserStudent = new BehaviorSubject<Student>(new Student());
-
+  private Event = new BehaviorSubject<any>(new Array<CalendarEvent>());
   public studentObservable:Observable<Student>;
 
 
@@ -34,12 +35,12 @@ export class StudentService {
         next:(student)=>{
         ///let newStudent=student[0];
 
-       // this.setStudentToLocalStorage(newStudent)   // to save the session  
+       // this.setStudentToLocalStorage(newStudent)   // to save the session
 
           this.UserStudent.next(student);
           this.toastrService.success(
             `Bienvenu ${student.name} !`);
-            'Connexion Reussi'                   // message to send in case of succes 
+            'Connexion Reussi'                   // message to send in case of succes
         },
            // to save the session
 
@@ -55,6 +56,19 @@ export class StudentService {
 
     ); // to connect the backend with the front
 
+  }
+
+  loadEvent(id:any):Observable<any>{
+    return this.http.get<CalendarEvent[]>(STUDENT_LOAD_EVENT, id).pipe(
+      tap({
+        next:(Event)=>{
+          this.Event.next(Event);
+        },
+        error:(errorresponse)=>{
+          this.toastrService.error(errorresponse.error, 'Erreur de chargement');
+        }
+      })
+    )
   }
 
 
