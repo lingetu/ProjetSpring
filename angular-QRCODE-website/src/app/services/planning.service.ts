@@ -19,13 +19,8 @@ export class PlanningService {
 
   constructor(private http: HttpClient) { }
 
-
-  getUser(id:any): Observable<any> {
-    return this.http.get(LOAD_EVENT,httpOptions);
-  }
-
-  getEvent(id:any): Observable<any> {
-    return this.http.get(LOAD_EVENT,httpOptions);
+  getEvent(url:any): Observable<any> {
+    return this.http.get(url,httpOptions);
   }
 }
 

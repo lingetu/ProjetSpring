@@ -121,8 +121,10 @@ export class AgendaComponent implements OnInit {
   //méthode pour récupérer les événements de l'étudiant connecté depuis la base de données à travers le service StudentService
   this.studentService.studentObservable.subscribe((newStudent)=>{
     this.student = newStudent;
-    this.PlanningService.getEvent(this.student.id).subscribe((events)=>{
-      this.events = events;
+    //passage de l'id de l'étudiant connecté pour récupérer ses événements à travers l'url : http://localhost:8080/utilisateurs/{id}/planning
+    this.PlanningService.getEvent("http://localhost:8080/utilisateurs/"+this.student.id+"/plannings").subscribe((data)=>{
+      console.log(data);
+      this.events = data;
     }
     )
   })
