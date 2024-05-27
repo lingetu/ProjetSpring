@@ -17,10 +17,20 @@ const httpOptions = {
 })
 export class PlanningService {
 
+  private baseUrl = 'http://localhost:8080/plannings';
+
   constructor(private http: HttpClient) { }
 
   getEvent(url:any): Observable<any> {
     return this.http.get(url,httpOptions);
+  }
+
+  addEvent(event: any): Observable<any> {
+    return this.http.post(LOAD_EVENT, event, httpOptions);
+  }
+
+  addPlanning(planning: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl, planning);
   }
 }
 

@@ -32,6 +32,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgendaComponent } from './agenda/agenda.component';
+import { PlanningComponent } from './planning/planning.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { AgendaComponent } from './agenda/agenda.component';
     CreationEvenementComponent,
     CreationEvenementComponent,
     AgendaComponent,
+    PlanningComponent,
    ],
 
 
@@ -63,7 +65,8 @@ import { AgendaComponent } from './agenda/agenda.component';
         /* Form à remplir pour obtenir son QRCODE quand on est extérieur à l'école */
         /**Form login si admin redirige vers page admin, si étudiant/invité redirige vers scanneur de qrcode/home(profile) */
         { path: 'formLogin', component: LoginPageComponent},
-        { path: 'homeStudent', component: AgendaComponent},
+        { path: 'planning', component: PlanningComponent},
+        { path: 'agenda', component: AgendaComponent},
         /**S'enregistrer avec son mail ou numéro étudiant */
         { path: 'formRegistration', component: RegistrationPageComponent},
         { path: '**', component: NullUrlComponent},

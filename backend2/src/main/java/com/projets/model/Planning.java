@@ -15,7 +15,7 @@ public class Planning {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String type; // Général ou Spécifique
+    private String type; 
     private String TypeEvenement;
     private Date DateDebut;
     private Date DateFin;

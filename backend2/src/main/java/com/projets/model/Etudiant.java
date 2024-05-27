@@ -6,7 +6,6 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("Etudiant")
 public class Etudiant extends Utilisateur {
     private String matricule;
 

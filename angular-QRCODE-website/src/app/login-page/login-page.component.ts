@@ -30,7 +30,7 @@ export class LoginPageComponent {
   DataFormStudentLogin !: FormGroup;
   DataFormGuestLogin !: FormGroup;
   isSubmitted = false;
-  returnUrlStudent = '/homeStudent';
+  returnUrlStudent = '/agenda';
   returnUrlGuest = '/homeGuest';
 
   payLoad: any;
@@ -73,16 +73,25 @@ submitGuestLogin(){
   this.isSubmitted = true;
   if(this.DataFormGuestLogin.invalid) {
     return};
+    console.log("submit guest login")
+console.log(this.fcGuest['email'].value)
+console.log(this.fcGuest['password'].value)
 
-
-  this.guestService.login({    
+  this.guestService.login(
+    {    
     email:this.fcGuest['email'].value,
-    password: this.fcGuest['password'].value,
-  }).subscribe(()=>{
+    motDePasse: this.fcGuest['password'].value,
+  },
+  
+    "http://localhost:8080/utilisateurs/login",
+  
+).subscribe(()=>{
+  console.log("guest login success")
 
-    this.router.navigate([this.returnUrlGuest])
+    this.router.navigate([this.returnUrlStudent])
   });
 }
+
 submitStudentLogin(){
   this.isSubmitted = true;
   if(this.DataFormStudentLogin.invalid) {
@@ -101,7 +110,9 @@ submitStudentLogin(){
   this.studentService.login({     
     number:this.fcStudent['number'].value,
     password: this.fcStudent['password'].value,
-  }).subscribe(()=>{
+  },
+
+).subscribe(()=>{
     this.router.navigate([this.returnUrlStudent])
   });
 }

@@ -22,9 +22,9 @@ const GUEST_KEY = 'Guest'; // We can modify this key when it's needed
   providedIn: 'root',
 })
 export class GuestService {
-  private UserGuest = new BehaviorSubject<Guest>(new Guest());
+  private UserGuest = new BehaviorSubject<any>(null);
 
-  public guestObservable: Observable<Guest>;
+  public guestObservable: Observable<any>;
 
   constructor(private http: HttpClient, private toastrService: ToastrService) {
     this.guestObservable = this.UserGuest.asObservable();
@@ -34,24 +34,29 @@ export class GuestService {
 
   // Here we define the Login methode by using an Interface (the IStudentLogin interface )
 
-  login(guestLogin: any): Observable<any> {
-    return this.http.post<any>(GUEST_LOGIN_URL, guestLogin).pipe(
+  login(guestLogin: any,url:any): Observable<any> {
+    return this.http.post<any>(url,guestLogin).pipe(
       tap({
         next: (guest) => {
           this.UserGuest.next(guest);
-          this.toastrService.success(`Bienvenu ${guest.name} !`);
+          this.guestObservable = this.UserGuest.asObservable();
+
+          this.toastrService.success(`Bienvenu ${guest.nom} !`);
           ('Connexion Reussi'); // message to send in case of succes
+          console.log(this.guestObservable);
         },
 
         error: (errorresponse) => {
+          console.log(errorresponse);
           this.toastrService.error(errorresponse.error, 'Log Failed'); // message in failed case
+
         },
       })
     ); // to connect the backend with the front
   }
 
 
-  registerGuest(guestLogin:IGuestLogin):Observable<Guest>{
+  registerGuest(guestLogin:any):Observable<any>{
     return this.http.post<Guest>(GUEST_REGISTER_URL ,guestLogin).pipe(
 
       tap({
@@ -59,7 +64,7 @@ export class GuestService {
           this.setGuestToLocalStorage(guest);
           this.UserGuest.next(guest);
           this.toastrService.success(
-            `Bienvenu(e) ${guest.name}`,
+            `Bienvenu(e) ${guest.nom}`,
             'Inscription reussi !!'
           );
         },

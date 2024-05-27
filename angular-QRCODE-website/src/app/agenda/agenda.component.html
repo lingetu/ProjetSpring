@@ -2,33 +2,28 @@
   <h1>Agenda</h1>
 
   <div>
-  <h5 class="my-3">{{student.name}}</h5>
-                <p class="mb-0">Numéro d'étudiant : {{student.numberStudent}}</p>
-            </div>
-
-  <div class="calendar-header">
-    <!-- <button (click)="viewDate = subDays(viewDate, 1)">Previous</button>
-    <button (click)="viewDate = addDays(viewDate, 1)">Next</button> -->
-    <!-- <button (click)="view = CalendarView.Month">Month</button>
-    <button (click)="view = CalendarView.Week">Week</button>
-    <button (click)="view = CalendarView.Day">Day</button> -->
+    <h5 class="my-3">{{guest?.nom}}</h5>
   </div>
 
-  <mwl-calendar-week-view [viewDate]="viewDate" [events]="events"></mwl-calendar-week-view>
+  <div class="calendar-header">
+    <button (click)="previousWeek()">Semaine précédente</button>
+    <button (click)="nextWeek()">Semaine suivante</button>
+  </div>
 
-  <!-- <form (submit)="addEvent()">
-    <input type="text" [(ngModel)]="newEvent.title" placeholder="Title" name="title" required>
-    <input type="date" [(ngModel)]="newEvent.start | date:'yyyy-MM-dd'" name="start" required>
-    <textarea [(ngModel)]="newEvent.meta.description" placeholder="Description" name="description"></textarea>
-    <button type="submit">Add Event</button>
-  </form> -->
+  <button class="btn btn-primary my-3" (click)="redirectToPlanning()">Ajouter un créneau</button>
 
-  <!-- <ul>
-    <li *ngFor="let event of events">
-      <h2>{{ event.title }}</h2>
-      <p>{{ event.start | date }}</p>
-      <p>{{ event.meta.description }}</p>
-      <button (click)="deleteEvent(event)">Delete</button>
-    </li>
-  </ul> -->
+  <mwl-calendar-week-view 
+    [viewDate]="viewDate" 
+    [events]="events"
+    (eventClicked)="handleEventClick($event.event)">
+  </mwl-calendar-week-view>
+
+  <div class="event-details-panel" *ngIf="selectedEvent">
+    <h2>Détails de l'événement</h2>
+    <p><strong>Titre:</strong> {{ selectedEvent.title }}</p>
+    <p><strong>Début:</strong> {{ selectedEvent.start | date:'medium' }}</p>
+    <p><strong>Fin:</strong> {{ selectedEvent.end | date:'medium' }}</p>
+    <p><strong>Description:</strong> {{ selectedEvent.meta.description }}</p>
+    <button (click)="closeEventDetails()">Fermer</button>
+  </div>
 </div>
