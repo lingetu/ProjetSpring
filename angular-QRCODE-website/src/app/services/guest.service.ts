@@ -34,8 +34,8 @@ export class GuestService {
 
   // Here we define the Login methode by using an Interface (the IStudentLogin interface )
 
-  login(guestLogin: IGuestLogin): Observable<Guest> {
-    return this.http.post<Guest>(GUEST_LOGIN_URL, guestLogin).pipe(
+  login(guestLogin: any): Observable<any> {
+    return this.http.post<any>(GUEST_LOGIN_URL, guestLogin).pipe(
       tap({
         next: (guest) => {
           this.UserGuest.next(guest);

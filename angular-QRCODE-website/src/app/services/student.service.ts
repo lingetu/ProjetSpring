@@ -18,7 +18,8 @@ export class StudentService {
  // private UserStudent = new BehaviorSubject<Student>(this.getStudentFromLocalStorage());
  private UserStudent = new BehaviorSubject<Student>(new Student());
   private Event = new BehaviorSubject<any>(new Array<CalendarEvent>());
-  public studentObservable:Observable<Student>;
+  public studentObservable:Observable<any>;
+
 
 
   constructor(private http:HttpClient , private toastrService:ToastrService) {
@@ -28,8 +29,8 @@ export class StudentService {
 
   // Here we define the Login methode by using an Interface (the IStudentLogin interface )
 
-  login(studentLogin:IStudentLogin):Observable<Student>{
-    return this.http.post<Student>(STUDENT_LOGIN_URL ,studentLogin).pipe(
+  login(studentLogin:any):Observable<any>{
+    return this.http.post<any>(STUDENT_LOGIN_URL ,studentLogin).pipe(
 
       tap({
         next:(student)=>{
