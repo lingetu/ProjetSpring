@@ -8,6 +8,8 @@ import jakarta.persistence.OneToMany;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Agenda {
     @Id
@@ -16,6 +18,7 @@ public class Agenda {
     private String nom;
     private String description;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "agenda")
     private List<Planning> plannings;
 

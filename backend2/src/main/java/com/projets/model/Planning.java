@@ -2,6 +2,8 @@ package com.projets.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,9 +20,11 @@ public class Planning {
     private Date DateDebut;
     private Date DateFin;
 
+    @JsonIgnore
     @ManyToOne
     private Agenda agenda;
 
+    @JsonIgnore
     @ManyToOne
     private Utilisateur utilisateur;
 

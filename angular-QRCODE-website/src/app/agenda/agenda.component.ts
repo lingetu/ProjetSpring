@@ -122,17 +122,18 @@ export class AgendaComponent implements OnInit {
   this.studentService.studentObservable.subscribe((newStudent)=>{
     this.student = newStudent;
     //passage de l'id de l'étudiant connecté pour récupérer ses événements à travers l'url : http://localhost:8080/utilisateurs/{id}/planning
-    this.PlanningService.getEvent("http://localhost:8080/utilisateurs/"+this.student.id+"/plannings").subscribe((data)=>{
-      console.log(data);
-      this.events = data;
-    }
-    )
+   
   })
+  this.PlanningService.getEvent("http://localhost:8080/utilisateurs/"+1+"/plannings").subscribe((data)=>{
+    console.log(data);
+    this.events = data;
+  }
+  )
 
- if(this.student.name == undefined){
-   //Rediriger vers la page de connexion
-   window.location.href = "/formLogin";
- }
+//  if(this.student.name == undefined){
+//    //Rediriger vers la page de connexion
+//    window.location.href = "/formLogin";
+//  }
 
 
 

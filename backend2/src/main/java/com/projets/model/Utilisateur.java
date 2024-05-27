@@ -10,11 +10,13 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
 
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")
 public class Utilisateur {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -22,6 +24,7 @@ public class Utilisateur {
     private String email;
     private String motDePasse;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "utilisateur")
     private List<Planning> plannings;
 
