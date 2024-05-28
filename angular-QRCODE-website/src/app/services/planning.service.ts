@@ -30,6 +30,7 @@ export class PlanningService {
   }
 
   addPlanning(planning: any): Observable<any> {
+    console.log("Planning to add: ", planning);
     return this.http.post<any>(this.baseUrl, planning);
   }
 }

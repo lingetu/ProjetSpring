@@ -46,36 +46,33 @@ export class AgendaComponent implements OnInit {
       title: event.typeEvenement,
       start: new Date(event.dateDebut),
       end: new Date(event.dateFin),
-      color: this.getColor(event.type),
+      color: this.getColor(),
       allDay: false,
       meta: { description: event.type },
     };
   }
 
-  getColor(type: string) {
-    switch (type) {
-      case 'Cours':
-        return { primary: '#FF5733', secondary: '#FFD1C1' };
-      case 'Spécifique':
-        return { primary: '#33FF57', secondary: '#C1FFD1' };
-      default:
-        return { primary: '#000000', secondary: '#FFFFFF' };
+   getColor() {
+    // Fonction pour générer une couleur hexadécimale aléatoire
+    function getRandomHexColor() {
+      return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
     }
+  
+    return {
+      primary: getRandomHexColor(),
+      secondary: getRandomHexColor()
+    };
   }
-
   previousWeek() {
-    this.viewDate = subDays(this.viewDate, 7);
-    console.log("Previous Week: ", this.viewDate);
+    this.viewDate = subDays(this.viewDate, 7); 
   }
 
   nextWeek() {
-    this.viewDate = addDays(this.viewDate, 7);
-    console.log("Next Week: ", this.viewDate);
+    this.viewDate = addDays(this.viewDate, 7); 
   }
 
   handleEventClick(event: CalendarEvent) {
     this.selectedEvent = event;
-    console.log("Selected Event: ", this.selectedEvent);
   }
 
   closeEventDetails() {
