@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
 import { subDays, addDays } from 'date-fns';
 import { GuestService } from '../services/guest.service';
 import { PlanningService } from '../services/planning.service';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-agenda',
@@ -17,7 +18,7 @@ export class AgendaComponent implements OnInit {
   guest: any;
   selectedEvent: CalendarEvent | null = null;
   events: CalendarEvent[] = [];
-  agendaId: number | null = null;
+  agendaId: any=1;
 
   constructor(
     private guestService: GuestService,
@@ -94,11 +95,10 @@ export class AgendaComponent implements OnInit {
   redirectToPlanning() {
     this.router.navigate(['/planning'], { state: { guest: this.guest } });
   }
-  onAgendaChange(): void {
-    this.loadEvents();
-  }
-
-  loadEvents(): void {
-this.getagenda();
-  }
+onAgendaIdChange(event: Event) {
+  const inputElement = event.target as HTMLInputElement;
+  this.agendaId = Number(inputElement.value);
+  console.log("Agenda ID: ", this.agendaId);
+  this.getagenda();
+}
 }
