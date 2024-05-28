@@ -12,9 +12,11 @@ const GUEST_REGISTER_URL= 'http://localhost:8080/utilisateurs/register';
 
 const GUEST_KEY = 'Guest'; // We can modify this key when it's needed
 
+
 @Injectable({
   providedIn: 'root',
 })
+
 export class GuestService {
   private UserGuest = new BehaviorSubject<any>(null);
   public guestObservable: Observable<any>;
@@ -32,16 +34,11 @@ export class GuestService {
         next: (guest) => {
           this.UserGuest.next(guest);
           this.guestObservable = this.UserGuest.asObservable();
-
-          this.toastrService.success(`Bienvenu ${guest.nom} !`);
           ('Connexion Reussi'); // message to send in case of succes
-          console.log(this.guestObservable);
         },
 
         error: (errorresponse) => {
-          console.log(errorresponse);
-          this.toastrService.error(errorresponse.error, 'Log Failed'); // message in failed case
-
+          console.log(errorresponse);// message in failed case
         },
       })
     ); // to connect the backend with the front
