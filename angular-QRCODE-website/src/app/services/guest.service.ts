@@ -3,18 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import {
 
-  // GUEST_CREATION_EVENT,
-  GUEST_LOGIN_URL,
-  GUEST_REGISTER_URL,
-
-
-} from '../shared/constants/urls';
 
 import { IEventCreation } from '../shared/interfaces/IEventCreation';
 import { IGuestLogin } from '../shared/interfaces/IGuestLogin';
 
+const GUEST_REGISTER_URL= 'http://localhost:8080/utilisateurs/register';
 
 const GUEST_KEY = 'Guest'; // We can modify this key when it's needed
 
@@ -23,9 +17,7 @@ const GUEST_KEY = 'Guest'; // We can modify this key when it's needed
 })
 export class GuestService {
   private UserGuest = new BehaviorSubject<any>(null);
-
   public guestObservable: Observable<any>;
-
   constructor(private http: HttpClient, private toastrService: ToastrService) {
     this.guestObservable = this.UserGuest.asObservable();
   }
@@ -58,23 +50,6 @@ export class GuestService {
 
   registerGuest(guestLogin:any):Observable<any>{
     return this.http.post<Guest>(GUEST_REGISTER_URL ,guestLogin).pipe(
-
-      tap({
-        next: (guest) => {
-          this.setGuestToLocalStorage(guest);
-          this.UserGuest.next(guest);
-          this.toastrService.success(
-            `Bienvenu(e) ${guest.nom}`,
-            'Inscription reussi !!'
-          );
-        },
-        error: (errorResponse) => {
-          this.toastrService.error(
-            errorResponse.error,
-            'Inscription échouée !! '
-          );
-        },
-      })
     ); // to connect the backend with the front
   }
   private setGuestToLocalStorage(guest: Guest) {
