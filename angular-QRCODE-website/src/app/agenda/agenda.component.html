@@ -9,8 +9,10 @@
     <button (click)="previousWeek()">Semaine précédente</button>
     <button (click)="nextWeek()">Semaine suivante</button>
   </div>
-
-  <button class="btn btn-primary my-3" (click)="redirectToPlanning()">Ajouter un créneau</button>
+<div *ngIf="!guest.matricule">
+  <button class="btn btn-primary my-3" (click)="redirectToPlanning() " >Ajouter un créneau</button>
+</div>
+ 
 
   <mwl-calendar-week-view 
     [viewDate]="viewDate" 
