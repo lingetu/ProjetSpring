@@ -12,10 +12,13 @@
 <div *ngIf="!guest.matricule">
   <button class="btn btn-primary my-3" (click)="redirectToPlanning() " >Ajouter un créneau</button>
 </div>
- 
 
-  <mwl-calendar-week-view 
-    [viewDate]="viewDate" 
+<div class="input-container">
+  <input type="number" (ngModel)="agendaId" (change)="onAgendaChange()" placeholder="Entrez un numéro d'agenda" />
+</div>
+
+  <mwl-calendar-week-view
+    [viewDate]="viewDate"
     [events]="events"
     (eventClicked)="handleEventClick($event.event)">
   </mwl-calendar-week-view>
