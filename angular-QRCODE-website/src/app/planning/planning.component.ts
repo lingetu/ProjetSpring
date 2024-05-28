@@ -45,12 +45,12 @@ export class PlanningComponent implements OnInit {
   const typeEvenement = this.newEventForm.get('typeEvenement').value;
 
   const event = {
-    agenda_id: agendaId,
+    agenda: {id:agendaId},
     dateDebut: dateDebut,
     dateFin: dateFin,
     type: type,
     typeEvenement: typeEvenement,
-    utilisateurId: this.guest.id
+    utilisateur:{id:this.guest.id} 
   };
 
   // Vous pouvez maintenant utiliser event2 comme nécessaire

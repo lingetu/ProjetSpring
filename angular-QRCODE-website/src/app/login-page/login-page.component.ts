@@ -87,7 +87,7 @@ console.log(this.fcGuest['password'].value)
   
 ).subscribe(()=>{
   console.log("guest login success")
-
+  
     this.router.navigate([this.returnUrlStudent])
   });
 }
@@ -106,11 +106,12 @@ submitStudentLogin(){
   password :${this.fc['password'].value}`) */     // to catch the email and the password submitted 
    
    // For the student login page
-
+    
   this.studentService.login({     
     number:this.fcStudent['number'].value,
     password: this.fcStudent['password'].value,
   },
+  
 
 ).subscribe(()=>{
     this.router.navigate([this.returnUrlStudent])
