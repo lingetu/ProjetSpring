@@ -59,7 +59,7 @@ export class RegistrationPageComponent  {
         this.DataGuestRegisterForm = this.formBuilder.group({
 
           name :['',[ Validators.required , Validators.minLength(2)]],
-          company :['',[Validators.required ,Validators.minLength(1)]],
+          role :['',[Validators.required ,Validators.minLength(1)]],
           email:['', [Validators.required ,Validators.email]],
           password:['', [Validators.required]],
           confirmPassword:['',[Validators.required]]
@@ -87,49 +87,49 @@ get fcStudent (){
 
 
 
-submitRegistrationStudent(){
+// submitRegistrationStudent(){
 
 
-  this.isSubmitted = true;
-  console.log(this.DataStudentRegisterForm.value['password']);
-  console.log(this.DataStudentRegisterForm.value['confirmPassword']);
-  if(this.DataStudentRegisterForm.invalid) {
-    console.log("ok");
-    // Log des erreurs spécifiques
-    if (this.fcStudent['name'].errors) {
-      console.log('Erreur dans le champ "name" :', this.fcStudent['name'].errors);
-   }
-   if (this.fcStudent['numberStudent'].errors) {
-      console.log('Erreur dans le champ "studentNumber" :', this.fcStudent['numberStudent'].errors);
-   }
-   if (this.fcStudent['password'].errors) {
-    console.log('Erreur dans le champ "password" :', this.fcStudent['password'].errors);
- }
- if (this.fcStudent['confirmPassword'].errors) {
-  console.log('Erreur dans le champ "confirmPassword" :', this.fcStudent['confirmPassword'].errors);
-}
+//   this.isSubmitted = true;
+//   console.log(this.DataStudentRegisterForm.value['password']);
+//   console.log(this.DataStudentRegisterForm.value['confirmPassword']);
+//   if(this.DataStudentRegisterForm.invalid) {
+//     console.log("ok");
+//     // Log des erreurs spécifiques
+//     if (this.fcStudent['name'].errors) {
+//       console.log('Erreur dans le champ "name" :', this.fcStudent['name'].errors);
+//    }
+//    if (this.fcStudent['numberStudent'].errors) {
+//       console.log('Erreur dans le champ "studentNumber" :', this.fcStudent['numberStudent'].errors);
+//    }
+//    if (this.fcStudent['password'].errors) {
+//     console.log('Erreur dans le champ "password" :', this.fcStudent['password'].errors);
+//  }
+//  if (this.fcStudent['confirmPassword'].errors) {
+//   console.log('Erreur dans le champ "confirmPassword" :', this.fcStudent['confirmPassword'].errors);
+// }
 
 
-   return;
-  }
+//    return;
+//   }
 
-  const fv = this.DataStudentRegisterForm.value;
+//   const fv = this.DataStudentRegisterForm.value;
 
-  const student : IStudentRegister ={
-    name : fv.name,
-    numberStudent : fv.numberStudent,
-    password : fv.password,
-    confirmPassword : fv.confirmPassword
-  };
-
-
-  this.studentService.register(student).subscribe(_ =>{
-    this.router.navigateByUrl(this.returnUrl);
-  });
+//   const student : IStudentRegister ={
+//     name : fv.name,
+//     numberStudent : fv.numberStudent,
+//     password : fv.password,
+//     confirmPassword : fv.confirmPassword
+//   };
 
 
+//   this.studentService.register(student).subscribe(_ =>{
+//     this.router.navigateByUrl(this.returnUrl);
+//   });
 
-}
+
+
+// }
 
 
 /******************************* GUEST REGISTRATION ************************************ */
@@ -171,14 +171,14 @@ submitRegistrationGuest(){
 
   const fv = this.DataGuestRegisterForm.value;
 
-  const guest : IGuestRegister ={
+  const guest : any ={
     name : fv.name,
-    company : fv.company,
-    adresse: fv.adresse,
+    role : fv.role,
     email : fv.email,
     password : fv.password,
     confirmPassword : fv.confirmPassword
   };
+  console.log(guest);
 
 
   this.guestService.registerGuest(guest).subscribe(_ =>{

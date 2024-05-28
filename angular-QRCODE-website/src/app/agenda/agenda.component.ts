@@ -17,12 +17,16 @@ export class AgendaComponent implements OnInit {
   guest: any;
   selectedEvent: CalendarEvent | null = null;
   events: CalendarEvent[] = [];
+  agendaId: number | null = null;
 
   constructor(
     private guestService: GuestService,
     private planningService: PlanningService,
     private router: Router
   ) {}
+
+
+
 
   ngOnInit() {
     this.guestService.guestObservable.subscribe((newGuest) => {
@@ -57,18 +61,26 @@ export class AgendaComponent implements OnInit {
     function getRandomHexColor() {
       return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
     }
-  
+
     return {
       primary: getRandomHexColor(),
       secondary: getRandomHexColor()
     };
   }
+  getagenda() {
+    this.planningService.getEventbyId(`http://localhost:8080/agendas/${this.agendaId}/plannings`).subscribe((data) => {
+      console.log("Events Data: ", data);
+      this.events = data.map(event => this.transformEvent(event));
+      console.log("Transformed Events: ", this.events);
+    }
+  );
+  }
   previousWeek() {
-    this.viewDate = subDays(this.viewDate, 7); 
+    this.viewDate = subDays(this.viewDate, 7);
   }
 
   nextWeek() {
-    this.viewDate = addDays(this.viewDate, 7); 
+    this.viewDate = addDays(this.viewDate, 7);
   }
 
   handleEventClick(event: CalendarEvent) {
@@ -81,5 +93,12 @@ export class AgendaComponent implements OnInit {
 
   redirectToPlanning() {
     this.router.navigate(['/planning'], { state: { guest: this.guest } });
+  }
+  onAgendaChange(): void {
+    this.loadEvents();
+  }
+
+  loadEvents(): void {
+this.getagenda();
   }
 }

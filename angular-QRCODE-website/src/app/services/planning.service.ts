@@ -33,6 +33,9 @@ export class PlanningService {
     console.log("Planning to add: ", planning);
     return this.http.post<any>(this.baseUrl, planning);
   }
+  getEventbyId(url:any): Observable<any> {
+    return this.http.get(url,httpOptions);
+  }
 }
 
 
