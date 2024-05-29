@@ -13,8 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @RestController
-@RequestMapping("/utilisateurs")
+@RequestMapping("/api/utilisateurs")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UtilisateurController {
+
     @Autowired
     private UtilisateurRepository utilisateurRepository;
 
@@ -32,7 +34,7 @@ public class UtilisateurController {
         return utilisateurRepository.findById(id).orElse(null);
     }
 
-    @PostMapping("/utilisateurs")
+    @PostMapping("/")
     public Utilisateur save(@RequestBody Utilisateur u) {
         logger.info("Saving user with email {}", u.getEmail());
 
@@ -53,16 +55,15 @@ public class UtilisateurController {
         utilisateurRepository.deleteById(id);
     }
 
-    // Méthode pour le login
     @PostMapping("/login")
     public Utilisateur login(@RequestBody Utilisateur u) {
         logger.info("Login attempt for user with email {}", u.getEmail());
         Utilisateur utilisateur = utilisateurRepository.findByEmailAndMotDePasse(u.getEmail(), u.getMotDePasse());
         if (utilisateur != null) {
-            logger.info("Login successful for user with email {}", u.getMotDePasse());
+            logger.info("Login successful for user with email {}", u.getEmail());
             return utilisateur;
         } else {
-            logger.warn("Login failed for user with email {}", u.getMotDePasse());
+            logger.warn("Login failed for user with email {}", u.getEmail());
             throw new RuntimeException("Invalid credentials");
         }
     }

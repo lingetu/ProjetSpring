@@ -1,7 +1,5 @@
-# Dockerfile pour Angular
-
-# Utiliser une image de base Node.js pour construire l'application Angular
-FROM node:18 as build
+# Utiliser une image de base Node.js pour construire et servir l'application Angular
+FROM node:18
 
 # Définir le répertoire de travail
 WORKDIR /app
@@ -18,14 +16,14 @@ COPY . .
 # Construire l'application
 RUN npm run build --prod
 
-# Utiliser une image Nginx pour servir l'application
-FROM nginx:alpine
+# Installer le serveur http-server globalement
+RUN npm install -g http-server
 
-# Copier les fichiers construits de l'étape précédente
-COPY --from=build /app/dist/angular-qrcode-website /usr/share/nginx/html
+# Définir le répertoire de travail pour le serveur
+WORKDIR /app/dist/angular-qrcode-website
 
 # Exposer le port
-EXPOSE 80
+EXPOSE 4200
 
-# Démarrer Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Démarrer l'application en utilisant http-server avec CORS
+CMD ["http-server", "-p", "4200", "-a", "0.0.0.0", "--cors"]

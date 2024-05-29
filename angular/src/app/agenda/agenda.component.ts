@@ -19,7 +19,7 @@ export class AgendaComponent implements OnInit {
   guest: any;
   selectedEvent: CalendarEvent | null = null;
   events: CalendarEvent[] = [];
-  agendaId: any=1;
+  agendaId: any= 1;
 
   constructor(
     private guestService: GuestService,
@@ -31,15 +31,18 @@ export class AgendaComponent implements OnInit {
 
 
   ngOnInit() {
+    this.agendaId=1;
+    this.getagenda();
     this.guestService.guestObservable.subscribe((newGuest) => {
       this.guest = newGuest;
       console.log("Guest: ", this.guest);
+      
 
-      this.planningService.getEvent(`${BASE_URL}/utilisateurs/${this.guest.id}/plannings`).subscribe((data) => {
-        console.log("Events Data: ", data);
-        this.events = data.map(event => this.transformEvent(event));
-        console.log("Transformed Events: ", this.events);
-      });
+      // this.planningService.getEvent(`${BASE_URL}/utilisateurs/${this.guest.id}/plannings`).subscribe((data) => {
+      //   console.log("Events Data: ", data);
+      //   this.events = data.map(event => this.transformEvent(event));
+      //   console.log("Transformed Events: ", this.events);
+      // });
     });
 
     if (!this.guest || !this.guest.nom) {

@@ -9,7 +9,7 @@ import {BASE_URL} from '../shared/constants/urls';
 import { IEventCreation } from '../shared/interfaces/IEventCreation';
 import { IGuestLogin } from '../shared/interfaces/IGuestLogin';
 
-const GUEST_REGISTER_URL= `${BASE_URL}/utilisateurs`;
+const GUEST_REGISTER_URL= `${BASE_URL}/utilisateurs/add`;
 
 const GUEST_KEY = 'Guest'; // We can modify this key when it's needed
 
@@ -31,6 +31,7 @@ export class GuestService {
 
   login(guestLogin: any,url:any): Observable<any> {
     console.log(guestLogin);
+    console.log(url);
     return this.http.post<any>(url,guestLogin).pipe(
       tap({
         next: (guest) => {

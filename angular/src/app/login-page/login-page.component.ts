@@ -96,10 +96,6 @@ console.log(this.fcGuest['password'].value)
 submitStudentLogin(){
   this.isSubmitted = true;
   if(this.DataFormStudentLogin.invalid) {
-
-    
-    console.log("your input is not valid !!!!")
-
     return};
 
   /*alert(`number:${this.fc['number'].value}   
