@@ -1,0 +1,32 @@
+version: '3'
+services:
+  myapp:
+    image: myapp:latest
+    environment:
+      DATABASE_URL: jdbc:mysql://mysql:3306/agendadb
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: root
+      SERVER_PORT: 8080
+      EXTERNAL_API_URL: http://myapp:8081/api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+
+  angular-app:
+    image: my-angular-app:latest
+    environment:
+      API_URL: http://myapp:8080
+    ports:
+      - "80:80"
+    depends_on:
+      - myapp
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: agendadb
+    ports:
+      - "3306:3306"
+ 
