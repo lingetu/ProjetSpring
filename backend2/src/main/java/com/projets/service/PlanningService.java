@@ -33,4 +33,10 @@ public class PlanningService {
     public List<Planning> getPlanningsByUtilisateurId(Integer utilisateurId) {
         return planningRepository.findByUtilisateurId(utilisateurId);
     }
+    
+    public List<Planning> getPlanningsByAgendaId(Integer agendaId) {
+        return planningRepository.findByAgendaId(agendaId);
+    }
+    
+    
 }

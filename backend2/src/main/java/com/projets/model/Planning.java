@@ -1,9 +1,6 @@
 package com.projets.model;
 
 import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,17 +13,17 @@ public class Planning {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String type; 
-    private String TypeEvenement;
-    private Date DateDebut;
-    private Date DateFin;
+    private String typeEvenement; // corrigé de TypeEvenement à typeEvenement
+    private Date dateDebut; // corrigé de DateDebut à dateDebut
+    private Date dateFin; // corrigé de DateFin à dateFin
 
-    @JsonIgnore
     @ManyToOne
     private Agenda agenda;
 
-    @JsonIgnore
     @ManyToOne
     private Utilisateur utilisateur;
+
+    // Getters and Setters
 
     public int getId() {
         return id;
@@ -45,27 +42,27 @@ public class Planning {
     }
 
     public String getTypeEvenement() {
-        return TypeEvenement;
+        return typeEvenement;
     }
 
     public void setTypeEvenement(String typeEvenement) {
-        TypeEvenement = typeEvenement;
+        this.typeEvenement = typeEvenement;
     }
 
     public Date getDateDebut() {
-        return DateDebut;
+        return dateDebut;
     }
 
     public void setDateDebut(Date dateDebut) {
-        DateDebut = dateDebut;
+        this.dateDebut = dateDebut;
     }
 
     public Date getDateFin() {
-        return DateFin;
+        return dateFin;
     }
 
     public void setDateFin(Date dateFin) {
-        DateFin = dateFin;
+        this.dateFin = dateFin;
     }
 
     public Agenda getAgenda() {

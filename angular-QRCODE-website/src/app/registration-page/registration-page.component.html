@@ -5,10 +5,8 @@
         <h3>Création compte</h3>
         <input type="text" placeholder="Nom" formControlName="name" />
         <div class="error-list" *ngIf="fcGuest['name'].errors && isSubmitted">
-
-          <div *ngIf="fcGuest['name'].errors['required']"> Ce champ ne doit pas etre vide. </div>
-
-          <div *ngIf="fcGuest['name'].errors['name']"> nom trop court. </div>
+          <div *ngIf="fcGuest['name'].errors['required']">Ce champ ne doit pas être vide.</div>
+          <div *ngIf="fcGuest['name'].errors['minlength']">Nom trop court.</div>
         </div>
 
         <div class="select-container">
@@ -19,100 +17,41 @@
           </select>
         </div>
 
-        <input type="email" placeholder="Email" formControlName="email" />
-        <div class="error-list" *ngIf="fcGuest['email'].errors && isSubmitted">
-
-          <div *ngIf="fcGuest['email'].errors['required']"> Ce champ ne doit pas etre vide. </div>
-
-          <div *ngIf="fcGuest['email'].errors['email']"> email trop court. </div>
+        <div *ngIf="fcGuest['role'].value === 'enseignant'">
+          <input type="text" placeholder="Spécialisation" formControlName="specialisation" />
         </div>
 
+        <div *ngIf="fcGuest['role'].value === 'etudiant'">
+          <input type="text" placeholder="Matricule" formControlName="matricule" />
+        </div>
 
+        <input type="email" placeholder="Email" formControlName="email" />
+        <div class="error-list" *ngIf="fcGuest['email'].errors && isSubmitted">
+          <div *ngIf="fcGuest['email'].errors['required']">Ce champ ne doit pas être vide.</div>
+          <div *ngIf="fcGuest['email'].errors['email']">Email invalide.</div>
+        </div>
 
         <input type="password" placeholder="Mot de passe" formControlName="password" />
         <div class="error-list" *ngIf="fcGuest['password'].errors && isSubmitted">
-
-          <div *ngIf="fcGuest['password'].errors['required']"> Ce champ ne doit pas etre vide. </div>
-
-          <div *ngIf="fcGuest['password'].errors['password']"> mot de passe trop court. </div>
+          <div *ngIf="fcGuest['password'].errors['required']">Ce champ ne doit pas être vide.</div>
         </div>
 
         <input type="password" placeholder="Confirmer Mot de passe" formControlName="confirmPassword" />
         <div class="error-list" *ngIf="fcGuest['confirmPassword'].errors && isSubmitted">
-
-          <div *ngIf="fcGuest['confirmPassword'].errors['required']"> Ce champ ne doit pas etre vide. </div>
-
-          <div *ngIf="fcGuest['confirmPassword'].errors['confirmPassword']"> mot de passe trop court. </div>
+          <div *ngIf="fcGuest['confirmPassword'].errors['required']">Ce champ ne doit pas être vide.</div>
+          <div *ngIf="fcGuest['confirmPassword'].errors['passwordsMatch']">Les mots de passe ne correspondent pas.</div>
         </div>
 
-        <button>Créer un compte Enseignant</button>
+        <button type="submit">Créer un compte</button>
       </form>
     </div>
-    <!-- <div class="form-container sign-up-container">
-      <form [formGroup]="DataStudentRegisterForm" (ngSubmit)="submitRegistrationStudent()">
-        <h1>Création compte Etudiant</h1>
-        <input type="number" placeholder="Numéro etudiant" formControlName="numberStudent" />
-
-        <div class="error-list" *ngIf="fcStudent['numberStudent'].errors && isSubmitted">
-
-          <div *ngIf="fcStudent['numberStudent'].errors['required']"> Ce champ ne doit pas etre vide. </div>
-
-          <div *ngIf="fcStudent['numberStudent'].errors['numberStudent']"> Identifiant trop court. </div>
-        </div>
-
-        <input type="text" placeholder="Nom" formControlName="name" />
-        <div class="error-list" *ngIf="fcStudent['name'].errors && isSubmitted">
-
-          <div *ngIf="fcStudent['name'].errors['required']">Ce champ ne doit pas etre vide. </div>
-
-        </div>
-
-        <input type="password" placeholder="Mot de passe" formControlName="password" />
-        <div class="error-list" *ngIf="fcStudent['password'].errors && isSubmitted">
-
-          <div *ngIf="fcStudent['password'].errors['required']">Ce champ ne doit pas etre vide. </div>
-
-        </div>
-        <input type="password" placeholder="Confirmer Mot de passe" formControlName="confirmPassword" />
-        <div class="error-list" *ngIf="fcStudent['confirmPassword'].errors && isSubmitted">
-
-          <div *ngIf="fcStudent['confirmPassword'].errors['required']">Ce champ ne doit pas etre vide. </div>
-
-        </div>
-
-
-        <button>Créer un compte Etudiant </button>
-      </form>
-    </div> -->
     <div class="overlay-container">
       <div class="overlay">
-        <!-- <div class="overlay-panel overlay-left">
-          <h1>Vous êtes étudiant ?</h1>
-          <p>Créer un compte étudiant !</p>
-          <button class="ghost" id="signIn" (click)="leftpanelactive(container)">Création compte étudiant</button>
-          <p>Vous possédez déjà un compte ?</p>
-          <a routerLink="/formLogin"><button class="ghost" id="signUp">Se connecter</button></a>
-        </div> -->
         <div class="overlay-panel overlay-right">
-         <h2>Vous possédez déjà un compte</h2>
+          <h2>Vous possédez déjà un compte</h2>
           <a routerLink="/formLogin"><button class="ghost" id="signUp">Se connecter</button></a>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<script>
-  const signUpButton = document.getElementById('signUp');
-  const signInButton = document.getElementById('signIn');
-  const container = document.getElementById('container');
-
-  signUpButton.addEventListener('click', () => {
-    container.classList.add("right-panel-active");
-  });
-
-
-  signInButton.addEventListener('click', () => {
-    container.classList.remove("right-panel-active");
-  });
-</script>

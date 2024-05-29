@@ -1,0 +1,10 @@
+{
+  "properties": [
+    {
+      "name": "external.api.url",
+      "type": "java.lang.String",
+      "description": "URL of the external API",
+      "sourceType": "com.projets.AgendaApplication"
+    }
+  ]
+}

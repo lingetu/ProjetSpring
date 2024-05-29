@@ -8,7 +8,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { IEventCreation } from '../shared/interfaces/IEventCreation';
 import { IGuestLogin } from '../shared/interfaces/IGuestLogin';
 
-const GUEST_REGISTER_URL= 'http://localhost:8080/utilisateurs/register';
+const GUEST_REGISTER_URL= 'http://localhost:8080/utilisateurs';
 
 const GUEST_KEY = 'Guest'; // We can modify this key when it's needed
 

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface PlanningRepository extends JpaRepository<Planning, Integer> {
     List<Planning> findByUtilisateurId(Integer utilisateurId);
+    List<Planning> findByAgendaId(Integer agendaId);
 }

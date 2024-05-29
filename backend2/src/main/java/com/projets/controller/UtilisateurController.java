@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.projets.model.Enseignant;
+import com.projets.model.Etudiant;
 import com.projets.model.Utilisateur;
 import com.projets.repository.UtilisateurRepository;
 import org.slf4j.Logger;
@@ -30,10 +32,19 @@ public class UtilisateurController {
         return utilisateurRepository.findById(id).orElse(null);
     }
 
-    @PostMapping
+    @PostMapping("/utilisateurs")
     public Utilisateur save(@RequestBody Utilisateur u) {
         logger.info("Saving user with email {}", u.getEmail());
-        return utilisateurRepository.save(u);
+
+        if (u instanceof Etudiant) {
+            Etudiant etudiant = (Etudiant) u;
+            return utilisateurRepository.save(etudiant);
+        } else if (u instanceof Enseignant) {
+            Enseignant enseignant = (Enseignant) u;
+            return utilisateurRepository.save(enseignant);
+        } else {
+            throw new IllegalArgumentException("Unknown user type");
+        }
     }
 
     @DeleteMapping("/{id}")

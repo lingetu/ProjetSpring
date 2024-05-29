@@ -11,12 +11,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projets.model.Agenda;
 import com.projets.service.AgendaService;
+import com.projets.service.ExternalApiService;
 
 @RestController
 public class AgendaController {
 
     @Autowired
     private AgendaService agendaService;
+    
+    @Autowired
+    private ExternalApiService externalApiService;
+
+    @GetMapping("/test-api-url")
+    public String testExternalApiUrl() {
+        externalApiService.callExternalApi();
+        return "Check the console for the external API URL.";
+    }    
 
     @GetMapping("/agendas")
     public List<Agenda> getAgendas() {

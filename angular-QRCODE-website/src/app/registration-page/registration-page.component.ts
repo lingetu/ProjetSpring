@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GuestService } from '../services/guest.service';
 import { StudentService } from '../services/student.service';
-import { IGuestRegister } from '../shared/interfaces/IGuestRegister';
-import { IStudentRegister } from '../shared/interfaces/IStudentRegister';
 import { PasswordsMatchValidator } from '../shared/validators/passwords_match_validator';
 
 @Component({
@@ -12,182 +10,82 @@ import { PasswordsMatchValidator } from '../shared/validators/passwords_match_va
   templateUrl: './registration-page.component.html',
   styleUrls: ['./registration-page.component.css']
 })
-export class RegistrationPageComponent  {
+export class RegistrationPageComponent implements OnInit {
 
   rightpanelactive(elem: HTMLElement) {
     elem.className = 'container right-panel-active';
-
   }
+  
   leftpanelactive(elem: HTMLElement) {
     elem.className = 'container';
   }
 
-  DataForm: FormGroup = new FormGroup({});
-  payLoad: any;
+  DataGuestRegisterForm !: FormGroup;
+  isSubmitted = false;
+  returnUrl = '';
 
- PreviewData()
-    {
-         this.payLoad = JSON.stringify(this.DataForm.value);
-         console.log(this.payLoad);
-    }
+  constructor(
+    private formBuilder: FormBuilder,
+    private guestService: GuestService,
+    private studentService: StudentService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {}
 
+  ngOnInit(): void {
+    this.DataGuestRegisterForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      role: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required]],
+      specialisation: [''], // Only for Enseignant
+      matricule: [''] // Only for Etudiant
+    }, {
+      validators: PasswordsMatchValidator('password', 'confirmPassword')
+    });
 
-    DataStudentRegisterForm !: FormGroup;
-    DataGuestRegisterForm !: FormGroup;
-    isSubmitted = false;
-    returnUrl = '';   // returnUrl = '/home';
-
-    constructor(private formBuilder: FormBuilder ,
-
-      private studentService :StudentService ,
-      private guestService :GuestService ,
-      private activatedRoute : ActivatedRoute,
-      private router: Router) {}
-
-      ngOnInit(): void{
-        this.DataStudentRegisterForm = this.formBuilder.group({
-          numberStudent:['', [Validators.required , Validators.minLength(8)]],
-          name:['', [Validators.required,Validators.minLength(3)]],
-          password:['', Validators.required],
-          confirmPassword:['',Validators.required]
-        },
-        {
-
-          validators: PasswordsMatchValidator('password', 'confirmPassword')
-        });
-
-        this.DataGuestRegisterForm = this.formBuilder.group({
-
-          name :['',[ Validators.required , Validators.minLength(2)]],
-          role :['',[Validators.required ,Validators.minLength(1)]],
-          email:['', [Validators.required ,Validators.email]],
-          password:['', [Validators.required]],
-          confirmPassword:['',[Validators.required]]
-        },{
-
-          validators: PasswordsMatchValidator('password', 'confirmPassword'),
-
-
-        });
-
-        this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'];
-      }
-
-
-
-
-
-/************************************* STUDENT REGISTRATION ****************************************  */
-
-
-get fcStudent (){
-  return this.DataStudentRegisterForm.controls;
-}
-
-
-
-
-// submitRegistrationStudent(){
-
-
-//   this.isSubmitted = true;
-//   console.log(this.DataStudentRegisterForm.value['password']);
-//   console.log(this.DataStudentRegisterForm.value['confirmPassword']);
-//   if(this.DataStudentRegisterForm.invalid) {
-//     console.log("ok");
-//     // Log des erreurs spécifiques
-//     if (this.fcStudent['name'].errors) {
-//       console.log('Erreur dans le champ "name" :', this.fcStudent['name'].errors);
-//    }
-//    if (this.fcStudent['numberStudent'].errors) {
-//       console.log('Erreur dans le champ "studentNumber" :', this.fcStudent['numberStudent'].errors);
-//    }
-//    if (this.fcStudent['password'].errors) {
-//     console.log('Erreur dans le champ "password" :', this.fcStudent['password'].errors);
-//  }
-//  if (this.fcStudent['confirmPassword'].errors) {
-//   console.log('Erreur dans le champ "confirmPassword" :', this.fcStudent['confirmPassword'].errors);
-// }
-
-
-//    return;
-//   }
-
-//   const fv = this.DataStudentRegisterForm.value;
-
-//   const student : IStudentRegister ={
-//     name : fv.name,
-//     numberStudent : fv.numberStudent,
-//     password : fv.password,
-//     confirmPassword : fv.confirmPassword
-//   };
-
-
-//   this.studentService.register(student).subscribe(_ =>{
-//     this.router.navigateByUrl(this.returnUrl);
-//   });
-
-
-
-// }
-
-
-/******************************* GUEST REGISTRATION ************************************ */
-
-
-
-
-get fcGuest (){
-  return this.DataGuestRegisterForm.controls;
-}
-
-//Guest registration methode
-
-submitRegistrationGuest(){
-
-
-  this.isSubmitted = true;
-  //console.log(this.DataStudentRegisterForm.value['password']);
-  //console.log(this.DataStudentRegisterForm.value['confirmPassword']);
-  if(this.DataGuestRegisterForm.invalid) {
-    console.log("ok");
-    // Log des erreurs spécifiques
-    if (this.fcGuest['name'].errors) {
-      console.log('Erreur dans le champ "name" :', this.fcGuest['name'].errors);
-   }
-   if (this.fcGuest['email'].errors) {
-      console.log('Erreur dans le champ "email" :', this.fcGuest['email'].errors);
-   }
-   if (this.fcGuest['password'].errors) {
-    console.log('Erreur dans le champ "password" :', this.fcGuest['password'].errors);
- }
- if (this.fcGuest['confirmPassword'].errors) {
-  console.log('Erreur dans le champ "confirmPassword" :', this.fcGuest['confirmPassword'].errors);
-}
-
-
-   return;
+    this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'];
   }
 
-  const fv = this.DataGuestRegisterForm.value;
+  get fcGuest() {
+    return this.DataGuestRegisterForm.controls;
+  }
 
-  const guest : any ={
-    name : fv.name,
-    role : fv.role,
-    email : fv.email,
-    password : fv.password,
-    confirmPassword : fv.confirmPassword
-  };
-  console.log(guest);
+  submitRegistrationGuest() {
+    this.isSubmitted = true;
+    
+    if (this.DataGuestRegisterForm.invalid) {
+      console.log("Form is invalid");
+      return;
+    }
 
+    const fv = this.DataGuestRegisterForm.value;
 
-  this.guestService.registerGuest(guest).subscribe(_ =>{
-    this.router.navigateByUrl(this.returnUrl);
-  });
+    let user: any = {
+      nom: fv.name,
+      email: fv.email,
+      motDePasse: fv.password,
+    };
 
+    if (fv.role === 'etudiant') {
+      user = {
+        ...user,
+        dtype: 'etudiant',
+        matricule: fv.matricule
+      };
+    } else if (fv.role === 'enseignant') {
+      user = {
+        ...user,
+        dtype: 'enseignant',
+        specialisation: fv.specialisation
+      };
+    }
 
+    console.log(user);
 
+    this.guestService.registerGuest(user).subscribe(_ => {
+      this.router.navigateByUrl(this.returnUrl);
+    });
+  }
 }
-
-}
-
